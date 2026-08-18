@@ -1,6 +1,7 @@
 import os
 import time
 import asyncio
+import mimetypes
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -172,6 +173,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="连词成句 - FastAPI 版", lifespan=lifespan)
 
 # 挂载静态文件与模板
+mimetypes.add_type("application/javascript", ".js")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
